@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Approval Prediction</title>
+    <style>
+        /* Importing Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Acme&family=Castoro+Titling&display=swap');
+
+        body {
+            background-color: #e8f5e9; /* Soft light green background */
+            color: #333;
+            font-family: 'Castoro Titling', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            padding-top: 40px; /* Added padding to ensure content doesn't touch the top */
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #4caf50; /* Soft green color */
+            margin-bottom: 100px; /* Extra margin to space out from the form */
+            margin-top: 250px; /* Increased margin-top to bring the heading lower */
+        }
+
+        form {
+            background-color: #f1f8e9; /* Light greenish color */
+            padding: 60px; /* Increased padding for a larger size */
+            border-radius: 15px; /* Softer, rounder corners */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            width: 500px; /* Larger width */
+            border: 1px solid #c8e6c9; /* Light border with a green tint */
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: block;
+            color: #444;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px; /* Slightly larger input field */
+            margin-bottom: 20px;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            background-color: #e8f5e9;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #a5d6a7; /* Softer green color */
+            color: #333;
+            border: 1px solid #81c784;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #81c784; /* Slightly darker hover effect */
+        }
+    </style>
+</head>
+<body>
+    <!-- Webpage Heading -->
+    <h2>Welcome to the Loan Approval System</h2> <!-- Main Heading -->
+    
+    <form action="/predict" method="post">
+        <h1>Loan Approval Prediction</h1> <!-- Form Heading -->
+        
+        <label for="education">Education (Graduate/Not Graduate):</label>
+        <input type="text" id="education" name="education" required>
+
+        <label for="self_employed">Self Employed (Yes/No):</label>
+        <input type="text" id="self_employed" name="self_employed" required>
+
+        <label for="no_of_dependents">No of Dependents:</label>
+        <input type="number" id="no_of_dependents" name="no_of_dependents" required>
+
+        <label for="income_annum">Income Per Annum:</label>
+        <input type="number" id="income_annum" name="income_annum" required>
+
+        <label for="loan_amount">Loan Amount:</label>
+        <input type="number" id="loan_amount" name="loan_amount" required>
+
+        <label for="loan_term">Loan Term (in years):</label>
+        <input type="number" id="loan_term" name="loan_term" required>
+
+        <label for="cibil_score">CIBIL Score:</label>
+        <input type="number" id="cibil_score" name="cibil_score" required>
+
+        <label for="residential_assets_value">Residential Assets Value:</label>
+        <input type="number" id="residential_assets_value" name="residential_assets_value" required>
+
+        <label for="commercial_assets_value">Commercial Assets Value:</label>
+        <input type="number" id="commercial_assets_value" name="commercial_assets_value" required>
+
+        <label for="luxury_assets_value">Luxury Assets Value:</label>
+        <input type="number" id="luxury_assets_value" name="luxury_assets_value" required>
+
+        <label for="bank_asset_value">Bank Asset Value:</label>
+        <input type="number" id="bank_asset_value" name="bank_asset_value" required>
+
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>

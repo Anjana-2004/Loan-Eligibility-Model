@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Status Result</title>
+    <style>
+        /* Importing Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Acme&family=Castoro+Titling&display=swap');
+
+        body {
+            background-color: #e8f5e9; /* Soft light green background */
+            color: #333;
+            font-family: 'Castoro Titling', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            padding-top: 10px; /* Reduced padding to move the content up */
+        }
+
+        .result-container {
+            background-color: #f1f8e9; /* Light greenish color for the box */
+            padding: 40px; /* Padding for the box */
+            border-radius: 15px; /* Softer, rounder corners */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            width: 80%; /* Adjusted width */
+            max-width: 600px; /* Maximum width for larger screens */
+            text-align: center; /* Centered text inside the box */
+            margin-top: -50px; /* Move the box up by 50 pixels */
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #4caf50; /* Soft green color */
+            margin-bottom: 20px; /* Reduced spacing below the heading */
+        }
+
+        p {
+            font-size: 2.5rem;
+            margin-bottom: 30px; /* Spacing below the prediction text */
+            color: #333;
+        }
+
+        a {
+            font-size: 2.2rem;
+            color: #000000; /* Link color */
+            text-decoration: none;
+            border: 1px solid #000000; /* Border color matching the link */
+            padding: 10px 15px; /* Padding for the button-like appearance */
+            border-radius: 5px; /* Rounded corners for the button */
+            transition: background-color 0.3s, color 0.3s; /* Transition effects */
+        }
+
+        a:hover {
+            background-color: #000000; /* Background color on hover */
+            color: white; /* Text color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h1>Loan Status Prediction</h1>
+        <p>{{ prediction_text }}</p>
+        <a href="/">Go back</a>
+    </div>
+</body>
+</html>
