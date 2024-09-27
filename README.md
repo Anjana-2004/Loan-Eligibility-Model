@@ -57,10 +57,3 @@ The machine learning model predicts loan approval using various parameters:
 - **Property Area**
 - ...and other relevant factors.
 
-## Future Enhancements
-- Implement validation for user inputs.
-- Add more features to the model for increased accuracy.
-- Improve the UI with more customization.
-```
-
-This includes both `index.html` (for inputs) and `result.html` (for displaying results). Let me know if you need any more details!
