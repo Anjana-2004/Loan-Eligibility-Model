@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier  # Import RandomForestClassifier
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -81,13 +81,13 @@ if y.dtype == 'object':
 # Split the data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Decision Tree Classifier
-print("Training Decision Tree Classifier...")
-dt = DecisionTreeClassifier(random_state=42)
-dt.fit(X_train, y_train)
+# Random Forest Classifier
+print("Training Random Forest Classifier...")
+rf = RandomForestClassifier(random_state=42)  # Instantiate RandomForestClassifier
+rf.fit(X_train, y_train)  # Train the model
 
 # Evaluate the model
-y_pred = dt.predict(X_test)
+y_pred = rf.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f'Accuracy: {accuracy * 100:.2f}%')
 print('Classification Report:')
@@ -96,7 +96,7 @@ print(classification_report(y_test, y_pred))
 # Confusion Matrix
 cm = confusion_matrix(y_test, y_pred)
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-plt.title('Decision Tree Confusion Matrix')
+plt.title('Random Forest Confusion Matrix')
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.show()
@@ -106,7 +106,7 @@ with open('scaler.pkl', 'wb') as f:
     pickle.dump(scaler, f)
 
 with open('model.pkl', 'wb') as f:
-    pickle.dump(dt, f)
+    pickle.dump(rf, f)  # Save the Random Forest model
 
 # Save the label encoder for target variable (if needed)
 if 'le_target' in locals():
