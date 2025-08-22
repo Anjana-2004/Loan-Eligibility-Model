@@ -1,6 +1,8 @@
 # Loan Approval Prediction System
 
-![Homepage Banner](banner.png)
+<p align="center">
+  <img src="banner.png" alt="Loan Approval Prediction" width="800"/>
+</p>
 
 ## Project Overview
 This project is a Machine Learning–based Loan Approval Prediction System that predicts whether a loan application will be Approved or Rejected based on applicant details.  
@@ -31,77 +33,59 @@ The system analyzes multiple applicant features such as income, dependents, requ
   - `education` – Applicant’s education status (Graduate / Not Graduate).  
   - `self_employed` – Whether the applicant is self-employed (Yes / No).  
 
-These features were carefully chosen as they directly contribute to assessing the applicant’s repayment ability and financial stability.
-
 ---
 
 ## Data Preprocessing
-Data preprocessing was a crucial step to ensure the dataset was clean and suitable for training machine learning models.  
-
-1. **Dropped Irrelevant Column**  
-   - Removed `loan_id` since it does not contribute to prediction.  
-
-2. **Handling Missing Values**  
-   - Numerical features imputed with the **mean** of their respective columns.  
-   - Categorical features imputed with the **most frequent value (mode)**.  
-
-3. **Encoding Categorical Variables**  
-   - Converted `education` and `self_employed` into numeric form using **Label Encoding** to make them usable by ML algorithms.  
-
-4. **Feature Scaling**  
-   - Standardized numerical columns using **StandardScaler** so that all numerical features are on the same scale and no feature dominates due to higher magnitude.  
-
-5. **Train-Test Split**  
-   - Dataset split into **80% training** and **20% testing** to evaluate model performance fairly.  
+1. **Dropped Irrelevant Column**: Removed `loan_id`.  
+2. **Handling Missing Values**:  
+   - Numerical features imputed with mean.  
+   - Categorical features imputed with mode.  
+3. **Encoding Categorical Variables**: Converted `education` and `self_employed` into numeric form using Label Encoding.  
+4. **Feature Scaling**: Standardized numerical columns using StandardScaler.  
+5. **Train-Test Split**: 80% training, 20% testing.
 
 ---
 
 ## Models Implemented
-Several machine learning models were tested to identify the best-performing algorithm:  
+- Logistic Regression  
+- Decision Tree Classifier  
+- Random Forest Classifier  
+- XGBoost Classifier  
 
-1. **Logistic Regression** – A baseline linear model for binary classification.  
-2. **Decision Tree Classifier** – A tree-based model that splits data into decision rules.  
-3. **Random Forest Classifier** – An ensemble of multiple decision trees to reduce overfitting and improve accuracy.  
-4. **XGBoost Classifier** – A powerful gradient boosting model known for high performance in classification problems.  
-
-Random Forest and XGBoost delivered the most consistent and accurate results, proving to be the most reliable models for this dataset.
+Random Forest and XGBoost delivered the most consistent and accurate results.
 
 ---
 
 ## Model Evaluation
-To measure performance, the following metrics were used:  
-
-- **Accuracy Score** – Overall percentage of correct predictions.  
-- **Confusion Matrix** – Visual representation of correct and incorrect classifications.  
-- **Classification Report** – Detailed precision, recall, and F1-score for each class.  
-- **Cross-Validation** – Ensured models were robust across different subsets of data.  
-- **Hyperparameter Tuning** – GridSearchCV was applied to Random Forest to optimize depth, number of trees, and minimum samples required for splits.  
+- Metrics used: Accuracy Score, Confusion Matrix (heatmap), Classification Report (Precision, Recall, F1-score)  
+- Cross-validation was applied for better generalization.  
+- Hyperparameter tuning using GridSearchCV optimized Random Forest parameters.
 
 ---
 
 ## Results
-- **Logistic Regression**: Established a baseline performance but limited due to its linear nature.  
-- **Decision Tree**: Provided better interpretability but showed signs of overfitting.  
-- **Random Forest**: Achieved high accuracy and maintained robustness, making it a strong candidate.  
-- **XGBoost**: Delivered the best overall performance, with high accuracy and consistent results across validation runs.  
+- Logistic Regression: Baseline performance  
+- Decision Tree: Improved interpretability, moderate accuracy  
+- Random Forest: High accuracy and robustness  
+- XGBoost: Best overall performance with consistent predictive power  
 
 ---
 
 ## Project Workflow
-1. Load and explore dataset.  
-2. Preprocess data (handle missing values, encode categorical data, scale features).  
-3. Split data into training and testing sets.  
-4. Train models (Logistic Regression, Decision Tree, Random Forest, XGBoost).  
-5. Evaluate models using accuracy, classification report, and confusion matrix.  
-6. Perform cross-validation for reliability.  
-7. Apply hyperparameter tuning for Random Forest.  
-8. Select the best-performing model (XGBoost / Random Forest).  
-9. Use the model to predict outcomes for new loan applicants.  
+1. Load dataset  
+2. Preprocess data (handle missing values, encode categorical features, scale numerical features)  
+3. Train-test split  
+4. Train multiple ML algorithms  
+5. Evaluate models using metrics and confusion matrices  
+6. Cross-validation for reliability  
+7. Hyperparameter tuning (Random Forest)  
+8. Select best-performing model (XGBoost / Random Forest)  
+9. Predict outcomes for new applicants  
 
 ---
 
 ## Prediction for New Applicants
-The system allows loan approval prediction for new applicants. Example:
+Example:
 
 ```python
 applicant_data = {
