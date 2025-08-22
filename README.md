@@ -1,7 +1,7 @@
 # Loan Approval Prediction System
 
 <p align="center">
-  <img src="banner.png" alt="Loan Approval Prediction" width="800"/>
+  <img src="banner.png" alt="Loan Approval Prediction" width="600"/>
 </p>
 
 ## Project Overview
