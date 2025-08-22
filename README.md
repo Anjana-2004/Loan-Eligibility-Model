@@ -1,6 +1,6 @@
 # Loan Approval Prediction System
 
-![Homepage Banner](C:\Users\Anjana\OneDrive\Desktop\Loan Approval Prediction)
+![Homepage Banner](banner.png)
 
 ## Project Overview
 This project is a Machine Learning–based Loan Approval Prediction System that predicts whether a loan application will be Approved or Rejected based on applicant details.  
