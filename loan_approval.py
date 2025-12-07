@@ -17,6 +17,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier        # ⭐ Added
 
 # Ignore warnings
 import warnings
@@ -48,11 +49,9 @@ numerical_cols = ['no_of_dependents', 'income_annum', 'loan_amount', 'loan_term'
 categorical_cols = ['education', 'self_employed']
 
 # Handle missing values
-# Impute numerical columns with mean
 imputer_num = SimpleImputer(strategy='mean')
 data[numerical_cols] = imputer_num.fit_transform(data[numerical_cols])
 
-# Impute categorical columns with mode
 imputer_cat = SimpleImputer(strategy='most_frequent')
 data[categorical_cols] = imputer_cat.fit_transform(data[categorical_cols])
 
@@ -73,27 +72,27 @@ data[numerical_cols] = scaler.fit_transform(data[numerical_cols])
 X = data.drop('loan_status', axis=1)
 y = data['loan_status']
 
-# Encode the target variable if it's categorical
+# Encode target if categorical
 if y.dtype == 'object':
     y = le.fit_transform(y)
 
-# Split the data into training and test sets
+# Split dataset
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42)
 
-# Model Training and Evaluation Function
+# -----------------------------------------------------------
+# Model Evaluation Function
+# -----------------------------------------------------------
 def model_evaluation(model, X_train, X_test, y_train, y_test):
-    # Train the model
     model.fit(X_train, y_train)
-    # Predict on test data
     y_pred = model.predict(X_test)
-    # Accuracy
+
     accuracy = accuracy_score(y_test, y_pred)
     print(f'Accuracy: {accuracy * 100:.2f}%')
-    # Classification Report
+
     print('Classification Report:')
     print(classification_report(y_test, y_pred))
-    # Confusion Matrix
+
     cm = confusion_matrix(y_test, y_pred)
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
     plt.title(f'{model.__class__.__name__} Confusion Matrix')
@@ -101,27 +100,53 @@ def model_evaluation(model, X_train, X_test, y_train, y_test):
     plt.ylabel('Actual')
     plt.show()
 
+# -----------------------------------------------------------
 # Logistic Regression
+# -----------------------------------------------------------
 print("Logistic Regression Results:")
 lr = LogisticRegression()
 model_evaluation(lr, X_train, X_test, y_train, y_test)
 
-# Decision Tree Classifier
+# -----------------------------------------------------------
+# Decision Tree
+# -----------------------------------------------------------
 print("Decision Tree Classifier Results:")
 dt = DecisionTreeClassifier(random_state=42)
 model_evaluation(dt, X_train, X_test, y_train, y_test)
 
-# Random Forest Classifier
+# -----------------------------------------------------------
+# Random Forest
+# -----------------------------------------------------------
 print("Random Forest Classifier Results:")
 rf = RandomForestClassifier(random_state=42)
 model_evaluation(rf, X_train, X_test, y_train, y_test)
 
-# Cross-Validation
+# -----------------------------------------------------------
+# ⭐ XGBOOST CLASSIFIER (NEWLY ADDED)
+# -----------------------------------------------------------
+print("XGBoost Classifier Results:")
+xgb = XGBClassifier(
+    n_estimators=200,
+    learning_rate=0.1,
+    max_depth=4,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42,
+    eval_metric='logloss'
+)
+
+model_evaluation(xgb, X_train, X_test, y_train, y_test)
+
+# -----------------------------------------------------------
+# Cross-Validation (Random Forest)
+# -----------------------------------------------------------
 cv_scores = cross_val_score(rf, X, y, cv=5)
 print(f"Cross-validation scores: {cv_scores}")
 print(f"Average cross-validation score: {cv_scores.mean() * 100:.2f}%")
 
-# Hyperparameter Tuning for Random Forest
+# -----------------------------------------------------------
+# Hyperparameter Tuning (Random Forest)
+# -----------------------------------------------------------
 param_grid = {
     'n_estimators': [100, 200],
     'max_depth': [None, 5, 10],
@@ -133,26 +158,27 @@ grid_search = GridSearchCV(estimator=rf, param_grid=param_grid,
                            cv=5, n_jobs=-1, verbose=2)
 
 grid_search.fit(X_train, y_train)
+
 print(f"Best parameters: {grid_search.best_params_}")
+
 best_rf = grid_search.best_estimator_
 
-# Evaluate the best model
+# Evaluate best RF
 print("Best Random Forest Classifier Results:")
 model_evaluation(best_rf, X_train, X_test, y_train, y_test)
 
-# Function to predict loan approval for a new applicant
+# -----------------------------------------------------------
+# Prediction Function
+# -----------------------------------------------------------
 def predict_loan_approval(applicant_data):
-    # Create a DataFrame from the applicant data
     applicant_df = pd.DataFrame([applicant_data], columns=X.columns)
-    # Encode categorical variables
+
     for col in categorical_cols:
         le.fit(data[col])
         applicant_df[col] = le.transform(applicant_df[col])
-    # Feature scaling
+
     applicant_df[numerical_cols] = scaler.transform(applicant_df[numerical_cols])
-    # Predict using the best model
+
     prediction = best_rf.predict(applicant_df)
     result = 'Approved' if prediction[0] == 1 else 'Rejected'
     print(f"\nLoan Application Prediction: {result}")
-
-
